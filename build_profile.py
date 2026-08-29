@@ -36,37 +36,13 @@ ART_FILE = "art.txt"
 INFO_WIDTH = 62
 
 CONTENT = [
-    ("OS", "TODO: Windows 11, macOS, Fedora"),
-    ("Uptime", "TODO: 10 years, 4 months"),
-    ("Host", "TODO: employer, or drop this row"),
-    ("Kernel", "Governance, Risk, and Compliance"),
-    ("Shell", "TODO: your daily driver terminal"),
-    None,
-    ("Focus.Primary", "GRC, Program Management"),
-    ("Focus.Adjacent", "Security Operations, People Leadership"),
-    ("Focus.Current", "Cloud Architecture (AWS, Azure)"),
-    None,
-    ("Research.Areas", "AI Persuasion Ethics, Moral Agency"),
+    ("Name", "Matt"),
+    ("Research.Areas", "Moral agency and responsibility in human-AI decision systems"),
+    ("Research.Areas", "Ethics of AI and algorithmic decision-making"),
     ("Research.Areas", "Human-Computer Interaction"),
-    ("Research.Venues", "IEEE S&P, USENIX, CHI, SOUPS, CSCW"),
-    None,
-    ("Hobbies.Software", "RPCS3 Modding, Texture Work"),
-    ("Hobbies.Other", "Fantasy Football, NCAA Dynasty"),
-    None,
-    ("Contact",),
-    ("Email", "TODO"),
-    ("LinkedIn", "TODO"),
-    ("GitHub", "TODO"),
-]
-
-# ---------------------------------------------------------------------------
-# THEMES
-# ---------------------------------------------------------------------------
-# invert flips the ramp so a bright pixel becomes a dense glyph. That is the
-# right call for a subject that is already light-on-dark, like a logo or line
-# art. It is the wrong call for a photo of a person: dark hair is what carries
-# the silhouette, and inverting hollows out the top of the head. Both themes
-# therefore use the same polarity and differ only in colour.
+    ("Research.Areas", "Digital Abuse & Privacy"),
+    ("Hobbies.Software", "Modding old video games, writing small utilities"),
+    ("Hobbies.Other", "Playing video games, mostly roguelikes and strategy games"),
 
 THEMES = {
     "dark_mode.svg": {
@@ -107,11 +83,6 @@ GUTTER = 5
 OUT_RAMP = " .:-=+*#%@"          # sparse -> dense
 CHAR_ASPECT = 0.5                # glyphs are about twice as tall as wide
 
-
-# ---------------------------------------------------------------------------
-# SOURCE -> LUMINANCE
-# ---------------------------------------------------------------------------
-
 def luma_from_image(path):
     """Return (grayscale, mask). mask is None unless the image has alpha.
 
@@ -134,9 +105,6 @@ def luma_from_image(path):
 
     if mask is None:
         return ImageOps.autocontrast(gray, cutoff=2), None
-
-    # stretch using the subject's own range; the cut-out background is pure
-    # white and would otherwise pin the white point and flatten the face
     vals = sorted(v for v, m in zip(gray.tobytes(), mask.tobytes()) if m > 127)
     if len(vals) > 20:
         lo = vals[int(len(vals) * 0.02)]
@@ -146,7 +114,6 @@ def luma_from_image(path):
             gray = gray.point(
                 lambda v: max(0, min(255, int((v - lo) * scale))))
     return gray, mask
-
 
 def luma_from_ascii(path):
     """Decode an existing ASCII block back into a grayscale image.
@@ -212,12 +179,7 @@ def render_ascii(img, width, invert=False, contrast=1.0, gamma=1.0, mask=None):
 
 
 def flip_ramp(art_lines):
-    """Turn light-background art into dark-background art, glyph for glyph.
 
-    Space is excluded from the flip. A blank cell is a hole in the cut-out
-    mask, not a tone, so it has to stay blank in both themes. Flipping it
-    would fill the whole background with the densest glyph.
-    """
     width = max(len(l) for l in art_lines)
     tones = OUT_RAMP[1:]
     table = {c: tones[len(tones) - 1 - i] for i, c in enumerate(tones)}
