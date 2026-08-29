@@ -34,22 +34,12 @@
 <text x="22" y="410" class="art" xml:space="preserve">#%%@@@@@@%%%%%%%@#.    :--::::----:  #@@@**=</text>
 <text x="22" y="426" class="art" xml:space="preserve">%%%%%%@@@%%%%%@@@@+      .:::::::   .@@@#*#*@@%*+</text>
 <text x="22" y="442" class="art" xml:space="preserve">%%%%@@@@@@@%%@@@@@%.       ...      -@@@*#%#@@@@@@%*+</text>
-<text x="441.20079999999996" y="74" xml:space="preserve"><tspan class="a">matt@github</tspan><tspan class="d"> --------------------------------------------------</tspan></text>
-<text x="441.20079999999996" y="90" xml:space="preserve"><tspan class="k">- OS: </tspan><tspan class="d"> ....................... </tspan><tspan class="v">TODO: Windows 11, macOS, Fedora</tspan></text>
-<text x="441.20079999999996" y="106" xml:space="preserve"><tspan class="k">- Uptime: </tspan><tspan class="d"> .......................... </tspan><tspan class="v">TODO: 10 years, 4 months</tspan></text>
-<text x="441.20079999999996" y="122" xml:space="preserve"><tspan class="k">- Host: </tspan><tspan class="d"> .................... </tspan><tspan class="v">TODO: employer, or drop this row</tspan></text>
-<text x="441.20079999999996" y="138" xml:space="preserve"><tspan class="k">- Kernel: </tspan><tspan class="d"> .................. </tspan><tspan class="v">Governance, Risk, and Compliance</tspan></text>
-<text x="441.20079999999996" y="154" xml:space="preserve"><tspan class="k">- Shell: </tspan><tspan class="d"> ................... </tspan><tspan class="v">TODO: your daily driver terminal</tspan></text>
-<text x="441.20079999999996" y="186" xml:space="preserve"><tspan class="k">- Focus.Primary: </tspan><tspan class="d"> .................... </tspan><tspan class="v">GRC, Program Management</tspan></text>
-<text x="441.20079999999996" y="202" xml:space="preserve"><tspan class="k">- Focus.Adjacent: </tspan><tspan class="d"> .... </tspan><tspan class="v">Security Operations, People Leadership</tspan></text>
-<text x="441.20079999999996" y="218" xml:space="preserve"><tspan class="k">- Focus.Current: </tspan><tspan class="d"> ............ </tspan><tspan class="v">Cloud Architecture (AWS, Azure)</tspan></text>
-<text x="441.20079999999996" y="250" xml:space="preserve"><tspan class="k">- Research.Areas: </tspan><tspan class="d"> ........ </tspan><tspan class="v">AI Persuasion Ethics, Moral Agency</tspan></text>
-<text x="441.20079999999996" y="266" xml:space="preserve"><tspan class="k">- Research.Areas: </tspan><tspan class="d"> ................ </tspan><tspan class="v">Human-Computer Interaction</tspan></text>
-<text x="441.20079999999996" y="282" xml:space="preserve"><tspan class="k">- Research.Venues: </tspan><tspan class="d"> ....... </tspan><tspan class="v">IEEE S&amp;P, USENIX, CHI, SOUPS, CSCW</tspan></text>
-<text x="441.20079999999996" y="314" xml:space="preserve"><tspan class="k">- Hobbies.Software: </tspan><tspan class="d"> ............. </tspan><tspan class="v">RPCS3 Modding, Texture Work</tspan></text>
-<text x="441.20079999999996" y="330" xml:space="preserve"><tspan class="k">- Hobbies.Other: </tspan><tspan class="d"> ............. </tspan><tspan class="v">Fantasy Football, NCAA Dynasty</tspan></text>
-<text x="441.20079999999996" y="362" class="k" xml:space="preserve">- Contact</text>
-<text x="441.20079999999996" y="378" xml:space="preserve"><tspan class="k">- Email: </tspan><tspan class="d"> ............................................... </tspan><tspan class="v">TODO</tspan></text>
-<text x="441.20079999999996" y="394" xml:space="preserve"><tspan class="k">- LinkedIn: </tspan><tspan class="d"> ............................................ </tspan><tspan class="v">TODO</tspan></text>
-<text x="441.20079999999996" y="410" xml:space="preserve"><tspan class="k">- GitHub: </tspan><tspan class="d"> .............................................. </tspan><tspan class="v">TODO</tspan></text>
+<text x="441.20079999999996" y="186" xml:space="preserve"><tspan class="a">matt@github</tspan><tspan class="d"> --------------------------------------------------</tspan></text>
+<text x="441.20079999999996" y="202" xml:space="preserve"><tspan class="k">- Name: </tspan><tspan class="d"> ................................................ </tspan><tspan class="v">Matt</tspan></text>
+<text x="441.20079999999996" y="218" xml:space="preserve"><tspan class="k">- Research.Areas: </tspan><tspan class="d"> </tspan><tspan class="v">Moral agency and responsibility in human-AI decision systems</tspan></text>
+<text x="441.20079999999996" y="234" xml:space="preserve"><tspan class="k">- Research.Areas: </tspan><tspan class="d"> </tspan><tspan class="v">Ethics of AI and algorithmic decision-making</tspan></text>
+<text x="441.20079999999996" y="250" xml:space="preserve"><tspan class="k">- Research.Areas: </tspan><tspan class="d"> ................ </tspan><tspan class="v">Human-Computer Interaction</tspan></text>
+<text x="441.20079999999996" y="266" xml:space="preserve"><tspan class="k">- Research.Areas: </tspan><tspan class="d"> ................... </tspan><tspan class="v">Digital Abuse &amp; Privacy</tspan></text>
+<text x="441.20079999999996" y="282" xml:space="preserve"><tspan class="k">- Hobbies.Software: </tspan><tspan class="d"> </tspan><tspan class="v">Modding old video games, writing small utilities</tspan></text>
+<text x="441.20079999999996" y="298" xml:space="preserve"><tspan class="k">- Hobbies.Other: </tspan><tspan class="d"> </tspan><tspan class="v">Playing video games, mostly roguelikes and strategy games</tspan></text>
 </svg>

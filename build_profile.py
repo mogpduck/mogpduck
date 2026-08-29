@@ -35,7 +35,7 @@ HANDLE = "matt@github"
 ART_FILE = "art.txt"
 INFO_WIDTH = 62
 
-CONTENT = [
+CONTENT = (
     ("Name", "Matt"),
     ("Research.Areas", "Moral agency and responsibility in human-AI decision systems"),
     ("Research.Areas", "Ethics of AI and algorithmic decision-making"),
@@ -43,6 +43,7 @@ CONTENT = [
     ("Research.Areas", "Digital Abuse & Privacy"),
     ("Hobbies.Software", "Modding old video games, writing small utilities"),
     ("Hobbies.Other", "Playing video games, mostly roguelikes and strategy games"),
+)
 
 THEMES = {
     "dark_mode.svg": {
