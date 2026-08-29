@@ -33,7 +33,7 @@ import sys
 # (label, value) rows. None is a blank spacer. A one-item tuple is a bare
 # heading with no value column.
 
-HANDLE = "matt@github"
+HANDLE = "mogpduck"
 ART_FILE = "art.txt"
 INFO_WIDTH = 62                  # minimum; the column grows to fit long values
 
