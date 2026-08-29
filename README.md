@@ -1,6 +1,20 @@
-<a href="https://github.com/Andrew6rant/Andrew6rant">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Andrew6rant/Andrew6rant/main/dark_mode.svg">
-    <img alt="Andrew Grant's GitHub Profile README" src="https://raw.githubusercontent.com/Andrew6rant/Andrew6rant/main/light_mode.svg">
-  </picture>
-</a>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="dark_mode.svg">
+  <source media="(prefers-color-scheme: light)" srcset="light_mode.svg">
+  <img alt="Profile card" src="light_mode.svg">
+</picture>
+
+<!--
+Everything above is generated. To change it:
+
+  1. Edit CONTENT in build_profile.py
+  2. python3 build_profile.py
+  3. Commit dark_mode.svg and light_mode.svg
+
+To swap in your ASCII art:
+
+  python3 build_profile.py --image me.jpg --width 46 --preview
+
+Tune --contrast, --gamma, and --invert until the preview looks right,
+then drop --preview to write art.txt and rebuild both SVGs.
+-->
