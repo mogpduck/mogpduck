@@ -1,7 +1,7 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="dark_mode.svg?v=d5f26810">
-  <source media="(prefers-color-scheme: light)" srcset="light_mode.svg?v=d5f26810">
-  <img alt="Profile card" src="light_mode.svg?v=d5f26810">
+  <source media="(prefers-color-scheme: dark)" srcset="dark_mode.svg?v=01cacff2">
+  <source media="(prefers-color-scheme: light)" srcset="light_mode.svg?v=01cacff2">
+  <img alt="Profile card" src="light_mode.svg?v=01cacff2">
 </picture>
 
 <!--
@@ -9,7 +9,7 @@ Everything above is generated. To change it:
 
   1. Edit CONTENT in build_profile.py
   2. python3 build_profile.py
-  3. Commit dark_mode.svg?v=d5f26810 and light_mode.svg?v=d5f26810
+  3. Commit dark_mode.svg?v=01cacff2 and light_mode.svg?v=01cacff2
 
 To swap in your ASCII art:
 
