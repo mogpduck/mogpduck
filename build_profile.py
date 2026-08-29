@@ -22,7 +22,9 @@ Requires: Pillow.  pip install pillow
 """
 
 import argparse
+import hashlib
 import os
+import re
 import sys
 
 # ---------------------------------------------------------------------------
@@ -33,7 +35,7 @@ import sys
 
 HANDLE = "matt@github"
 ART_FILE = "art.txt"
-INFO_WIDTH = 62
+INFO_WIDTH = 62                  # minimum; the column grows to fit long values
 
 CONTENT = (
     ("Name", "Matt"),
@@ -44,6 +46,15 @@ CONTENT = (
     ("Hobbies.Software", "Modding old video games, writing small utilities"),
     ("Hobbies.Other", "Playing video games, mostly roguelikes and strategy games"),
 )
+
+# ---------------------------------------------------------------------------
+# THEMES
+# ---------------------------------------------------------------------------
+# invert flips the ramp so a bright pixel becomes a dense glyph. That is the
+# right call for a subject that is already light-on-dark, like a logo or line
+# art. It is the wrong call for a photo of a person: dark hair is what carries
+# the silhouette, and inverting hollows out the top of the head. Both themes
+# therefore use the same polarity and differ only in colour.
 
 THEMES = {
     "dark_mode.svg": {
@@ -84,6 +95,11 @@ GUTTER = 5
 OUT_RAMP = " .:-=+*#%@"          # sparse -> dense
 CHAR_ASPECT = 0.5                # glyphs are about twice as tall as wide
 
+
+# ---------------------------------------------------------------------------
+# SOURCE -> LUMINANCE
+# ---------------------------------------------------------------------------
+
 def luma_from_image(path):
     """Return (grayscale, mask). mask is None unless the image has alpha.
 
@@ -106,6 +122,9 @@ def luma_from_image(path):
 
     if mask is None:
         return ImageOps.autocontrast(gray, cutoff=2), None
+
+    # stretch using the subject's own range; the cut-out background is pure
+    # white and would otherwise pin the white point and flatten the face
     vals = sorted(v for v, m in zip(gray.tobytes(), mask.tobytes()) if m > 127)
     if len(vals) > 20:
         lo = vals[int(len(vals) * 0.02)]
@@ -115,6 +134,7 @@ def luma_from_image(path):
             gray = gray.point(
                 lambda v: max(0, min(255, int((v - lo) * scale))))
     return gray, mask
+
 
 def luma_from_ascii(path):
     """Decode an existing ASCII block back into a grayscale image.
@@ -180,7 +200,12 @@ def render_ascii(img, width, invert=False, contrast=1.0, gamma=1.0, mask=None):
 
 
 def flip_ramp(art_lines):
+    """Turn light-background art into dark-background art, glyph for glyph.
 
+    Space is excluded from the flip. A blank cell is a hole in the cut-out
+    mask, not a tone, so it has to stay blank in both themes. Flipping it
+    would fill the whole background with the densest glyph.
+    """
     width = max(len(l) for l in art_lines)
     tones = OUT_RAMP[1:]
     table = {c: tones[len(tones) - 1 - i] for i, c in enumerate(tones)}
@@ -196,6 +221,41 @@ def esc(s):
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
+def text_el(x, y, chars, inner, cls=None):
+    """One line of text, pinned to exactly len(chars) * CHAR_W.
+
+    Without textLength the layout depends on the renderer picking a font whose
+    advance width matches CHAR_W. Every common monospace face is close enough,
+    but "close enough" over 140 columns is tens of pixels, and if the font runs
+    wide the right-hand column overflows the viewBox and gets clipped.
+    textLength makes the line occupy the width we budgeted no matter what font
+    resolves; lengthAdjust="spacing" leaves the glyphs alone and absorbs the
+    difference in the gaps, so the columns stay aligned.
+    """
+    klass = f' class="{cls}"' if cls else ""
+    return (f'<text x="{x}" y="{y}"{klass} xml:space="preserve" '
+            f'textLength="{len(chars) * CHAR_W:.2f}" lengthAdjust="spacing">'
+            f'{inner}</text>')
+
+
+def info_width():
+    """Width of the right-hand column, in characters.
+
+    INFO_WIDTH is a floor, not a ceiling. The column widens to fit the longest
+    row so that a long value pushes the card out instead of running off the
+    edge and getting clipped by the viewBox.
+    """
+    need = len(HANDLE) + 1
+    for row in CONTENT:
+        if row is None:
+            continue
+        if len(row) == 1:
+            need = max(need, len(row[0]) + 2)
+        else:
+            need = max(need, len(f"- {row[0]}: ") + len(row[1]) + 1)
+    return max(INFO_WIDTH, need)
+
+
 def leader(label, value, width):
     left = f"- {label}: "
     gap = width - len(left) - len(value)
@@ -207,7 +267,8 @@ def leader(label, value, width):
 def build_svg(art_lines, filename, colors):
     art_w = max((len(l) for l in art_lines), default=0)
     info_rows = len(CONTENT) + 1
-    cols = art_w + GUTTER + INFO_WIDTH
+    iw = info_width()
+    cols = art_w + GUTTER + iw
     rows = max(len(art_lines), info_rows)
 
     w = int(PAD_X * 2 + (cols + 2) * CHAR_W)
@@ -237,15 +298,15 @@ def build_svg(art_lines, filename, colors):
     y = art_y0
     for line in art_lines:
         if line.strip():
-            out.append(f'<text x="{PAD_X}" y="{y}" class="art" '
-                       f'xml:space="preserve">{esc(line)}</text>')
+            out.append(text_el(PAD_X, y, line, esc(line), "art"))
         y += LINE_H
 
     y = info_y0
-    rule = "-" * max(0, INFO_WIDTH - len(HANDLE) - 1)
-    out.append(f'<text x="{info_x}" y="{y}" xml:space="preserve">'
-               f'<tspan class="a">{esc(HANDLE)}</tspan>'
-               f'<tspan class="d"> {rule}</tspan></text>')
+    rule = "-" * max(0, iw - len(HANDLE) - 1)
+    header = f"{HANDLE} {rule}"
+    out.append(text_el(info_x, y, header,
+                       f'<tspan class="a">{esc(HANDLE)}</tspan>'
+                       f'<tspan class="d"> {rule}</tspan>'))
     y += LINE_H
 
     for row in CONTENT:
@@ -253,20 +314,45 @@ def build_svg(art_lines, filename, colors):
             y += LINE_H
             continue
         if len(row) == 1:
-            out.append(f'<text x="{info_x}" y="{y}" class="k" '
-                       f'xml:space="preserve">- {esc(row[0])}</text>')
+            out.append(text_el(info_x, y, f"- {row[0]}",
+                               f"- {esc(row[0])}", "k"))
         else:
-            left, dots, value = leader(row[0], row[1], INFO_WIDTH)
-            out.append(f'<text x="{info_x}" y="{y}" xml:space="preserve">'
-                       f'<tspan class="k">{esc(left)}</tspan>'
-                       f'<tspan class="d">{esc(dots)}</tspan>'
-                       f'<tspan class="v">{esc(value)}</tspan></text>')
+            left, dots, value = leader(row[0], row[1], iw)
+            out.append(text_el(info_x, y, left + dots + value,
+                               f'<tspan class="k">{esc(left)}</tspan>'
+                               f'<tspan class="d">{esc(dots)}</tspan>'
+                               f'<tspan class="v">{esc(value)}</tspan>'))
         y += LINE_H
 
     out.append("</svg>")
     with open(filename, "w", encoding="utf-8") as f:
         f.write("\n".join(out) + "\n")
     return w, h
+
+
+def stamp_readme(paths, path="README.md"):
+    """Rewrite the ?v= cache buster on the image links in README.md.
+
+    GitHub caches the rendered README server-side for a few minutes, so a
+    hard refresh clears your browser but not theirs. A query string that
+    changes with the file contents forces a fresh fetch on every push.
+    """
+    if not os.path.exists(path):
+        return None
+    h = hashlib.sha256()
+    for p in sorted(paths):
+        with open(p, "rb") as f:
+            h.update(f.read())
+    tag = h.hexdigest()[:8]
+
+    with open(path, encoding="utf-8") as f:
+        text = f.read()
+    new = re.sub(r"((?:dark|light)_mode\.svg)(\?v=[0-9a-f]+)?",
+                 lambda m: f"{m.group(1)}?v={tag}", text)
+    if new != text:
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(new)
+    return tag
 
 
 def main():
@@ -310,10 +396,19 @@ def main():
         light_art = f.read().rstrip("\n").split("\n")
     dark_art = flip_ramp(light_art)
 
+    written = []
     for name, colors in THEMES.items():
         art = dark_art if colors["invert"] else light_art
         w, h = build_svg(art, name, colors)
-        print(f"wrote {name} ({w}x{h})")
+        written.append(name)
+        note = ("  <- wider than GitHub's column, it will scale down"
+                if w > 1000 else "")
+        print(f"wrote {name} ({w}x{h}){note}")
+
+    tag = stamp_readme(written)
+    if tag:
+        print(f"stamped README.md with ?v={tag}")
+    print("commit all three files, or GitHub keeps serving the old card")
 
 
 if __name__ == "__main__":
