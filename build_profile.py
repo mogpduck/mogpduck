@@ -40,9 +40,8 @@ INFO_WIDTH = 62                  # minimum; the column grows to fit long values
 CONTENT = (
     ("Name", "Matt"),
     ("Research.Areas", "Moral agency and responsibility in human-AI decision systems"),
-    ("Research.Areas", "Ethics of AI and algorithmic decision-making"),
     ("Research.Areas", "Human-Computer Interaction"),
-    ("Research.Areas", "Digital Abuse & Privacy"),
+    ("Interests", "open source software, security, privacy, and ethics"),
     ("Hobbies.Software", "Modding old video games, writing small utilities"),
     ("Hobbies.Other", "Playing video games, mostly roguelikes and strategy games"),
 )
