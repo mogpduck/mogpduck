@@ -1,20 +1,19 @@
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="dark_mode.svg?v=a7d7bc71">
-  <source media="(prefers-color-scheme: light)" srcset="light_mode.svg?v=a7d7bc71">
-  <img alt="Profile card" src="light_mode.svg?v=a7d7bc71">
-</picture>
+<div align="center">
 
-<!--
-Everything above is generated. To change it:
+# Matt
 
-  1. Edit CONTENT in build_profile.py
-  2. python3 build_profile.py
-  3. Commit dark_mode.svg?v=a7d7bc71 and light_mode.svg?v=a7d7bc71
+*moral agency & responsibility in human-AI decision systems · human-computer interaction*
 
-To swap in your ASCII art:
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Clemson_Tigers_logo.svg/60px-Clemson_Tigers_logo.svg.png" height="16" valign="middle"> currently a grad student in computer science
 
-  python3 build_profile.py --image me.jpg --width 46 --preview
+💼 &nbsp; currently working in cyber
 
-Tune --contrast, --gamma, and --invert until the preview looks right,
-then drop --preview to write art.txt and rebuild both SVGs.
--->
+
+</div>
+
+<br>
+
+**Interested in** — open source software, security, privacy, ethics
+
+**Currently** — modding old games, writing small utilities, and spending too much time playing Slay the Spire 2 and other roguelikes
+
