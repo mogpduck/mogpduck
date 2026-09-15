@@ -13,7 +13,7 @@
 
 <br>
 
-**Interested in** — open source software, security, privacy, ethics
+**Interested in** - open source software, security, privacy, ethics
 
-**Currently** — modding old games, writing small utilities, and spending too much time playing Slay the Spire 2 and other roguelikes
+**Hobbies** - modding old games, writing small utilities, and spending too much time playing Slay the Spire 2 and other roguelikes
 
