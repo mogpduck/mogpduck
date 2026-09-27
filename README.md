@@ -4,10 +4,7 @@
 
 *moral agency & responsibility in human-AI decision systems · human-computer interaction*
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Clemson_Tigers_logo.svg/60px-Clemson_Tigers_logo.svg.png" height="16" valign="middle"> currently a grad student in computer science
-
-💼 &nbsp; currently working in cyber
-
+currently a grad student in computer science while working in cybersecurity
 
 </div>
 
